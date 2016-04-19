@@ -5,7 +5,7 @@
 
 
 
-<mapper namespace="com.thoughtworks.fixed.assets.core.GroupsRepository" >
+<mapper namespace="com.thoughtworks.learning.core.GroupsRepository" >
 
     <resultMap id="groupMapper" type="Group">
         <id property="id" column="id" />
