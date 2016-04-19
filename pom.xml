@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.thoughtworks.learning</groupId>
-    <artifactId>learning-jersey</artifactId>
+    <artifactId>TARS</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>learning-jersey</name>
+    <name>TARS</name>
 
     <dependencyManagement>
         <dependencies>
