@@ -1,0 +1,14 @@
+language: java
+
+jdk:
+  - oraclejdk8
+
+services:
+  - mongodb
+  - mysql
+
+before_script:
+  - mysql -uroot -e 'create database IF NOT EXISTS spike_test;'
+  - mvn clean compile flyway:migrate
+  - mysql -uroot -Dspike_test < src/main/resources/db/seed/init-spike.sql
+  
