@@ -1,0 +1,153 @@
+#%RAML 1.0
+title: examOnline
+version: v1
+baseUri: http://api.exam.thoughtworks.com
+#types:
+#  User:
+#    type: object
+#    properties:
+#      id: string
+#      mobile: string
+#      password: string
+#      role: string
+#      created_datetime: date
+#  Profile:
+#    type: object
+#    properties:
+#      user: User
+#      name: string
+#      gender: string
+#      school: string
+#      degree: string
+#      major: string
+#  LogicQuestion:
+#    type: object
+#    properties:
+#      id: string
+#      question: string
+#      answer: string
+#      image: string
+#      level: integer
+#  LogicSolution:
+#    type: object
+#    properties:
+#      id: string
+#      logic_question: LogicQuestion
+#      user_solution: string
+#  LogicResult:
+#    type: object
+#    properties:
+#      id: string
+#      logic_score: integer
+#      created_datetime: date
+#      remain_datetime: date
+#      solutions: LogicSolution[]
+#  ProgrammingSolution:
+#    type: object
+#    properties:
+#      id: string
+#      question: ProgrammingQuestion
+#      solution: string
+#      start_datetime: date
+#      remain_datetiem: date
+#      report: string
+#  ProgrammingResult:
+#    type: object
+#    properties:
+#      id: string
+#      programming_solutions: ProgrammingSolution[]
+#  ProgrammingQuestion:
+#    type: object
+#    properties:
+#      id: string
+#      content: string
+#      answer: string
+#      duration_hour: number
+#  ProgrammingQuestionPaper:
+#    type: object
+#    properties:
+#      id: string
+#      questions: ProgrammingQuestion[]
+#  LogicQuestionRepo:
+#    type: object
+#    properties:
+#      id: string
+#      url: string
+#  LogicTemplate:
+#    type: object
+#    properties:
+#      id: string
+#      question_rules: LogicQuestionRule[]
+#  LogicQuestionRule:
+#    type: object
+#    properties:
+#      id: string
+#      level: integer
+#      amount: integer
+#      repo: LogicQuestionRepo
+#  PublishedTemplate:
+#    type: object
+#    properties:
+#      id: string
+#      published_by: User
+#      logic_template: LogicTemplate
+#      programming_question_paper: ProgrammingQuestionPaper
+#  Recruitment:
+#    type: object
+#    properties:
+#      id: string
+#      begin_by: User
+#      end_by: User
+#      begin_datetime: date
+#      end_datetime: date
+#      expected_end_date: date
+#      published_template: PublishedTemplate
+#  FinalResult:
+#    type: object
+#    properties:
+#      id: string
+#      user: User
+#      logic_result: LogicResult
+#      programming_result: ProgrammingResult
+#      recruitment: Recruitment
+#      created_date: date
+
+/users:
+  post:
+    body:
+      application/json:
+        #schema: User
+    responses:
+      201:
+      400:
+      500:
+  /authorization:
+    post:
+  /{userId}/profile:
+      post:
+      get:
+/final-results:
+  get:
+    queryParameters:
+      user_id:
+      recruitment_id:
+      created_date:
+  /{final-result-id}:
+    /logic-result:
+      post:
+    /programming-result:
+      post:
+/recruitments:
+  get:
+  post:
+  /{recruitment-id}/end-time:
+    post:
+/published-templates:
+  get:
+  /{published-template-id}:
+    get:
+    /random-generated-logic-paper:
+      get:
+/logic-question-repos:
+  get:
+  post:
