@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.thoughtworks.exam.core.PublishedTemplatesRepository" >
+
+    <resultMap id="publishedTemplateMapper" type="PublishedTemplate">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="publishedBy" column="published_by" />
+        <result property="templateId" column="logic_template_id" />
+        <result property="programmingPaperId" column="programming_question_paper_id" />
+    </resultMap>
+
+    <select id="findPublishedTemplates" resultMap="publishedTemplateMapper">
+        select * from PublishedTemplate
+    </select>
+
+    <insert id="createPublishedTemplate">
+        insert into PublishedTemplate(Name, published_by, logic_template_id, programming_question_paper_id)
+          values(#{name}, #{published_by}, #{logic_template_id}, #{programming_question_paper_id});
+    </insert>
+
+    <select id="getPublishedTemplateById" resultMap="publishedTemplateMapper">
+        select * from PublishedTemplate  where id = #{id}
+    </select>
+
+</mapper>

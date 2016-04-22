@@ -1,6 +1,6 @@
-package com.thoughtworks.learning;
+package com.thoughtworks.exam;
 
-import com.thoughtworks.learning.core.UsersRepository;
+import com.thoughtworks.exam.core.PublishedTemplatesRepository;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -11,7 +11,6 @@ import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.net.URI;
@@ -21,7 +20,7 @@ import java.util.logging.Logger;
 public class App {
 
     private static final URI BASE_URI = URI.create("http://localhost:8080/admin/");
-    public static final String ROOT_PATH = "users";
+    public static final String ROOT_PATH = "published-templates";
 
     public static void main(String[] args) {
         try {
@@ -30,7 +29,7 @@ public class App {
 //            Map<String, String> initParams = new HashMap<>();
 //            initParams.put(
 //                    ServerProperties.PROVIDER_PACKAGES,
-//                    UsersResource.class.getPackage().getName());
+//                    PublishedTemplatesResourceImpl.class.getPackage().getName());
             final HttpServer server = GrizzlyHttpServerFactory.createHttpServer(BASE_URI, createSessionInViewConfig(), false);
             Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
                 @Override
@@ -60,15 +59,15 @@ public class App {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader, "test");
         final SqlSessionManager sqlSessionManager = SqlSessionManager.newInstance(sqlSessionFactory);
 
-        final UsersRepository usersRepository = sqlSessionManager.getMapper(UsersRepository.class);
+        final PublishedTemplatesRepository publishedTemplatesRepository = sqlSessionManager.getMapper(PublishedTemplatesRepository.class);
 
 
         final ResourceConfig config = new ResourceConfig()
-                .packages("com.thoughtworks.learning")
+                .packages("com.thoughtworks.exam")
                 .register(new AbstractBinder() {
                     @Override
                     protected void configure() {
-                        bind(usersRepository).to(UsersRepository.class);
+                        bind(publishedTemplatesRepository).to(PublishedTemplatesRepository.class);
                         bind(sqlSessionManager).to(SqlSessionManager.class);
                     }
                 });
@@ -85,14 +84,14 @@ public class App {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader, "test");
 
         SqlSession session = sqlSessionFactory.openSession();
-        final UsersRepository usersRepository = session.getMapper(UsersRepository.class);
+        final PublishedTemplatesRepository publishedTemplatesRepository = session.getMapper(PublishedTemplatesRepository.class);
 
         resourceConfig.register(new AbstractBinder() {
             @Override
             protected void configure() {
-                bind(usersRepository).to(UsersRepository.class);
+                bind(publishedTemplatesRepository).to(PublishedTemplatesRepository.class);
             }
-        }).packages("com.thoughtworks.learning.api");
+        }).packages("com.thoughtworks.exam.api");
 
         return resourceConfig;
     }

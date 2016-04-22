@@ -16,7 +16,7 @@
         <setting name="useGeneratedKeys" value="true"/>
     </settings>
     <typeAliases>
-        <package name="com.thoughtworks.learning.core"/>
+        <package name="com.thoughtworks.exam.core"/>
     </typeAliases>
     <!-- Continue going here -->
     <environments default="development">
@@ -24,7 +24,7 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/spike_test?allowMultiQueries=true"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/recruitment_dev?allowMultiQueries=true"/>
                 <property name="username" value="root"/>
                 <property name="password" value=""/>
             </dataSource>
@@ -33,14 +33,13 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/spike_test?allowMultiQueries=true"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/recruitment_test?allowMultiQueries=true"/>
                 <property name="username" value="root"/>
                 <property name="password" value=""/>
             </dataSource>
         </environment>
     </environments>
     <mappers>
-        <mapper resource="user.xml"/>
-        <mapper resource="group.xml"/>
+        <mapper resource="published_template.xml"/>
     </mappers>
 </configuration>

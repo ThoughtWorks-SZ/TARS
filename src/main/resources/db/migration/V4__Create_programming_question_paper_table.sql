@@ -1,6 +1,4 @@
-create TABLE User(
+create TABLE ProgrammingQuestionPaper(
     ID int not null AUTO_INCREMENT,
-    NAME VARCHAR(200),
     PRIMARY KEY (ID)
 );
-
