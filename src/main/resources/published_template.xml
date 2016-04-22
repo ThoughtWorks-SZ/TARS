@@ -11,21 +11,59 @@
         <id property="id" column="id" />
         <result property="name" column="name" />
         <result property="publishedBy" column="published_by" />
-        <result property="templateId" column="logic_template_id" />
-        <result property="programmingPaperId" column="programming_question_paper_id" />
+        <collection property="logicQuestionRules" javaType="ArrayList" column="logic_template_id"
+                    ofType="LogicQuestionRule" select="selectLogicQuestionRulesForPublishedTemplate" >
+        </collection>
+        <collection property="programmingQuestions" javaType="ArrayList" column="programming_question_paper_id"
+                    ofType="ProgrammingQuestion" select="selectProgrammingQuestionsForPublishedTemplate" >
+        </collection>
     </resultMap>
 
     <select id="findPublishedTemplates" resultMap="publishedTemplateMapper">
-        select * from PublishedTemplate
+        select * from PublishedTemplate;
     </select>
+
+    <insert id="createLogicTemplate">
+        insert into LogicTemplate() values();
+        <selectKey keyProperty="id" resultType="int">
+            select last_insert_id();
+        </selectKey>
+    </insert>
+
+    <insert id="createLogicQuestionRule">
+        insert into LogicQuestionRule(level, amount, repo_id, template_id)
+        values(#{level}, #{amount}, #{repositoryId}, #{templateId});
+    </insert>
+
+    <insert id="createProgrammingQuestionPaper">
+        insert into ProgrammingQuestionPaper() values();
+        <selectKey keyProperty="id" resultType="int">
+            select last_insert_id();
+        </selectKey>
+    </insert>
+
+    <insert id="createProgrammingQuestion">
+        insert into ProgrammingQuestion(content, answer, duration_hour, paper_id)
+        values(#{content}, #{answer}, #{durationHour}, #{paperId});
+    </insert>
 
     <insert id="createPublishedTemplate">
         insert into PublishedTemplate(Name, published_by, logic_template_id, programming_question_paper_id)
-          values(#{name}, #{published_by}, #{logic_template_id}, #{programming_question_paper_id});
+        values(#{name}, #{published_by}, #{template_id}, #{paper_id});
     </insert>
 
     <select id="getPublishedTemplateById" resultMap="publishedTemplateMapper">
-        select * from PublishedTemplate  where id = #{id}
+        select * from PublishedTemplate  where id = #{id};
+    </select>
+
+    <select id="selectLogicQuestionRulesForPublishedTemplate" resultType="LogicQuestionRule" >
+        select rule.id, rule.level, rule.amount, repo.id as repositoryId, repo.name as repositoryName, repo.url as repositoryUrl
+        from LogicQuestionRule rule, LogicQuestionRepo repo
+        where rule.template_id = #{logic_template_id} and repo.id = rule.repo_id;
+    </select>
+
+    <select id="selectProgrammingQuestionsForPublishedTemplate" resultType="ProgrammingQuestion" >
+        select * from ProgrammingQuestion where paper_id = #{programming_question_paper_id};
     </select>
 
 </mapper>

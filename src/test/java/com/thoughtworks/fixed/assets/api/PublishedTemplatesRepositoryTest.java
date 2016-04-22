@@ -1,5 +1,7 @@
 package com.thoughtworks.fixed.assets.api;
 
+import com.thoughtworks.exam.core.LogicQuestionRule;
+import com.thoughtworks.exam.core.ProgrammingQuestion;
 import com.thoughtworks.exam.core.PublishedTemplate;
 import com.thoughtworks.exam.core.PublishedTemplatesRepository;
 import org.apache.ibatis.io.Resources;
@@ -13,6 +15,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.Reader;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,21 +59,46 @@ public class PublishedTemplatesRepositoryTest {
         assertThat(publishedTemplate.size(), is(2));
         assertThat(publishedTemplate.get(0).getName(), is("This is a template."));
         assertThat(publishedTemplate.get(0).getPublishedBy(), is(1));
-        assertThat(publishedTemplate.get(0).getTemplateId(), is(1));
-        assertThat(publishedTemplate.get(0).getProgrammingPaperId(), is(1));
         assertThat(publishedTemplate.get(1).getName(), is("This is another template."));
         assertThat(publishedTemplate.get(1).getPublishedBy(), is(1));
-        assertThat(publishedTemplate.get(1).getTemplateId(), is(1));
-        assertThat(publishedTemplate.get(1).getProgrammingPaperId(), is(1));
     }
 
     @Test
     public void should_create_a_new_published_template() throws Exception {
+        int templateId = publishedTemplatesRepository.createLogicTemplate();
+
+        assertThat(templateId, is(not(0)));
+
+        int paperId = publishedTemplatesRepository.createProgrammingQuestionPaper();
+
+        assertThat(paperId, is(not(0)));
+
+        Map newLogicQuestionRuleInstance = new HashMap();
+        newLogicQuestionRuleInstance.put("level", 0);
+        newLogicQuestionRuleInstance.put("amount", 2);
+        newLogicQuestionRuleInstance.put("repositoryId", 1);
+        newLogicQuestionRuleInstance.put("templateId", templateId);
+        publishedTemplatesRepository.createLogicQuestionRule(newLogicQuestionRuleInstance);
+
+        assertThat((Integer)newLogicQuestionRuleInstance.get("level"), is(0));
+        assertThat((Integer)newLogicQuestionRuleInstance.get("amount"), is(2));
+        assertThat((Integer)newLogicQuestionRuleInstance.get("id"), is(not(0)));
+
+        Map newProgrammingQuestionInstance = new HashMap();
+        newProgrammingQuestionInstance.put("content", "Design a program to output hello world.");
+        newProgrammingQuestionInstance.put("answer", "localhost:3011/ci");
+        newProgrammingQuestionInstance.put("durationHour", 148);
+        newProgrammingQuestionInstance.put("paperId", paperId);
+        publishedTemplatesRepository.createProgrammingQuestion(newProgrammingQuestionInstance);
+
+        assertThat((String)newProgrammingQuestionInstance.get("content"), is("Design a program to output hello world."));
+        assertThat((String)newProgrammingQuestionInstance.get("id"), is(not(0)));
+
         Map newInstance = new HashMap();
         newInstance.put("name", "This is the third template.");
         newInstance.put("published_by", "1");
-        newInstance.put("logic_template_id", "1");
-        newInstance.put("programming_question_paper_id", "1");
+        newInstance.put("template_id", templateId);
+        newInstance.put("paper_id", paperId);
         publishedTemplatesRepository.createPublishedTemplate(newInstance);
 
         assertThat((String) newInstance.get("name"), is("This is the third template."));
@@ -83,7 +111,16 @@ public class PublishedTemplatesRepositoryTest {
         assertThat(thePublishedTemplate.getId(), is(1));
         assertThat(thePublishedTemplate.getName(), is("This is a template."));
         assertThat(thePublishedTemplate.getPublishedBy(), is(1));
-        assertThat(thePublishedTemplate.getTemplateId(), is(1));
-        assertThat(thePublishedTemplate.getProgrammingPaperId(), is(1));
+        List<LogicQuestionRule> logicQuestionRules = thePublishedTemplate.getLogicQuestionRules();
+        assertThat(logicQuestionRules.get(0).getId(), is(1));
+        assertThat(logicQuestionRules.get(0).getLevel(), is(0));
+        assertThat(logicQuestionRules.get(0).getAmount(), is(3));
+        assertThat(logicQuestionRules.get(0).getRepositoryName(), is("Mathematical Logic"));
+        assertThat(logicQuestionRules.get(0).getRepositoryUrl(), is("localhost:3010/mathematical-logic"));
+        List<ProgrammingQuestion> programmingQuestions = thePublishedTemplate.getProgrammingQuestions();
+        assertThat(programmingQuestions.get(0).getId(), is(1));
+        assertThat(programmingQuestions.get(0).getContent(), is("h1. This is a PROGRAMMING Exam"));
+        assertThat(programmingQuestions.get(0).getAnswer(), is("localhost:3011/test-ci"));
+        assertThat(programmingQuestions.get(0).getDurationHour(), is(148));
     }
 }

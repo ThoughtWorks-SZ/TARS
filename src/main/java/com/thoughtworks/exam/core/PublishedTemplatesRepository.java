@@ -11,6 +11,10 @@ public interface PublishedTemplatesRepository {
 
     PublishedTemplate newPublishedTemplate(String name);
 
+    int createLogicTemplate();
+    void createLogicQuestionRule(Map newInstance);
+    int createProgrammingQuestionPaper();
+    void createProgrammingQuestion(Map newInstance);
     void createPublishedTemplate(Map newInstance);
 
     PublishedTemplate getPublishedTemplateById(int publishedTemplateId);

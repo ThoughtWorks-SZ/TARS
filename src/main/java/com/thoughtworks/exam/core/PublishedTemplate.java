@@ -1,5 +1,7 @@
 package com.thoughtworks.exam.core;
 
+import java.util.List;
+
 /**
  * Created by ctang on 4/21/16.
  */
@@ -7,22 +9,24 @@ public class PublishedTemplate {
     private String name;
     private int id;
     private int publishedBy;
-    private int templateId;
-    private int programmingPaperId;
+    private List<LogicQuestionRule> logicQuestionRules;
+    private List<ProgrammingQuestion> programmingQuestions;
 
-    public PublishedTemplate(Integer id, String name, Integer publishedBy, Integer templateID, Integer programmingPaperID) {
+    public PublishedTemplate(Integer id, String name, Integer publishedBy, List<LogicQuestionRule> logicQuestionRules,
+                             List<ProgrammingQuestion> programmingQuestions) {
         this.name = name;
         this.id = id;
         this.publishedBy = publishedBy;
-        this.templateId = templateID;
-        this.programmingPaperId = programmingPaperID;
+        this.logicQuestionRules = logicQuestionRules;
+        this.programmingQuestions = programmingQuestions;
     }
 
-    public PublishedTemplate(String name, Integer publishedBy, Integer templateID, Integer programmingPaperID) {
+    public PublishedTemplate(String name, Integer publishedBy, List<LogicQuestionRule> logicQuestionRules,
+                             List<ProgrammingQuestion> programmingQuestions) {
         this.name = name;
         this.publishedBy = publishedBy;
-        this.templateId = templateID;
-        this.programmingPaperId = programmingPaperID;
+        this.logicQuestionRules = logicQuestionRules;
+        this.programmingQuestions = programmingQuestions;
     }
 
     public PublishedTemplate() {}
@@ -37,7 +41,7 @@ public class PublishedTemplate {
 
     public int getPublishedBy() { return this.publishedBy; }
 
-    public int getTemplateId() { return this.templateId; }
+    public List<LogicQuestionRule> getLogicQuestionRules() { return this.logicQuestionRules; }
 
-    public int getProgrammingPaperId() { return this.programmingPaperId; }
+    public List<ProgrammingQuestion> getProgrammingQuestions() { return this.programmingQuestions; }
 }
