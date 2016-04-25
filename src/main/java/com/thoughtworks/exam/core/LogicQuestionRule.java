@@ -4,15 +4,15 @@ package com.thoughtworks.exam.core;
  * Created by ctang on 4/22/16.
  */
 public class LogicQuestionRule {
-    private Integer id;
+    private String id;
     private Integer level;
     private Integer amount;
-    private Integer repositoryId;
+    private String repositoryId;
     private String repositoryName;
     private String repositoryUrl;
 
 
-    public Integer getId() {
+    public String getId() {
         return this.id;
     }
 
@@ -24,7 +24,7 @@ public class LogicQuestionRule {
         return this.amount;
     }
 
-    public Integer getRepositoryId() {
+    public String getRepositoryId() {
         return this.repositoryId;
     }
 

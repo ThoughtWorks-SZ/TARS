@@ -1,20 +1,24 @@
-INSERT INTO LogicTemplate(ID) VALUES (1);
+INSERT INTO LogicTemplate(ID) VALUES ('211e9310-0869-11e6-99fe-0b01e67fc86e');
 
-INSERT INTO LogicQuestionRepo (ID, NAME, URL) VALUES (1, 'Mathematical Logic', 'localhost:3010/mathematical-logic');
-INSERT INTO LogicQuestionRepo (ID, NAME, URL) VALUES (2, 'Thinking Logic', 'localhost:3010/thinking-logic');
+INSERT INTO LogicQuestionRepo (ID, NAME, URL) VALUES ('3a8e05f6-0869-11e6-99fe-0b01e67fc86e', 'Mathematical Logic', 'localhost:3010/mathematical-logic');
+INSERT INTO LogicQuestionRepo (ID, NAME, URL) VALUES ('3b05a6a6-0869-11e6-99fe-0b01e67fc86e', 'Thinking Logic', 'localhost:3010/thinking-logic');
 
-INSERT INTO LogicQuestionRule (ID, LEVEL, AMOUNT, REPO_ID, TEMPLATE_ID) VALUES (1, 0, 3, 1, 1);
-INSERT INTO LogicQuestionRule (ID, LEVEL, AMOUNT, REPO_ID, TEMPLATE_ID) VALUES (2, 0, 4, 2, 1);
-INSERT INTO LogicQuestionRule (ID, LEVEL, AMOUNT, REPO_ID, TEMPLATE_ID) VALUES (3, 1, 2, 2, 1);
-INSERT INTO LogicQuestionRule (ID, LEVEL, AMOUNT, REPO_ID, TEMPLATE_ID) VALUES (4, 2, 2, 1, 1);
+INSERT INTO LogicQuestionRule (ID, LEVEL, AMOUNT, REPO_ID, TEMPLATE_ID)
+VALUES ('5059a606-0869-11e6-99fe-0b01e67fc86e', 0, 3, '3a8e05f6-0869-11e6-99fe-0b01e67fc86e', '211e9310-0869-11e6-99fe-0b01e67fc86e');
+INSERT INTO LogicQuestionRule (ID, LEVEL, AMOUNT, REPO_ID, TEMPLATE_ID)
+VALUES ('50c77d02-0869-11e6-99fe-0b01e67fc86e', 0, 4, '3b05a6a6-0869-11e6-99fe-0b01e67fc86e', '211e9310-0869-11e6-99fe-0b01e67fc86e');
+INSERT INTO LogicQuestionRule (ID, LEVEL, AMOUNT, REPO_ID, TEMPLATE_ID)
+VALUES ('5127e94e-0869-11e6-99fe-0b01e67fc86e', 1, 2, '3b05a6a6-0869-11e6-99fe-0b01e67fc86e', '211e9310-0869-11e6-99fe-0b01e67fc86e');
+INSERT INTO LogicQuestionRule (ID, LEVEL, AMOUNT, REPO_ID, TEMPLATE_ID)
+VALUES ('51949418-0869-11e6-99fe-0b01e67fc86e', 2, 2, '3a8e05f6-0869-11e6-99fe-0b01e67fc86e', '211e9310-0869-11e6-99fe-0b01e67fc86e');
 
-INSERT INTO ProgrammingQuestionPaper (ID) VALUES (1);
+INSERT INTO ProgrammingQuestionPaper (ID) VALUES ('69f838fc-0869-11e6-99fe-0b01e67fc86e');
 
 INSERT INTO ProgrammingQuestion (ID, CONTENT, ANSWER, DURATION_HOUR, PAPER_ID) VALUES
-  (1, 'h1. This is a PROGRAMMING Exam', 'localhost:3011/test-ci', 148, 1);
+  ('7289c08a-0869-11e6-99fe-0b01e67fc86e', 'h1. This is a PROGRAMMING Exam', 'localhost:3011/test-ci', 148, '69f838fc-0869-11e6-99fe-0b01e67fc86e');
 
 
 INSERT INTO PublishedTemplate(ID, NAME, PUBLISHED_BY, LOGIC_TEMPLATE_ID, PROGRAMMING_QUESTION_PAPER_ID) VALUES
-  (1, 'This is a template.', 1, 1, 1);
-  INSERT INTO PublishedTemplate(ID, NAME, PUBLISHED_BY, LOGIC_TEMPLATE_ID, PROGRAMMING_QUESTION_PAPER_ID) VALUES
-  (2, 'This is another template.', 1, 1, 1);
+  ('823efe78-0869-11e6-99fe-0b01e67fc86e', 'This is a template.', 1, '211e9310-0869-11e6-99fe-0b01e67fc86e', '69f838fc-0869-11e6-99fe-0b01e67fc86e');
+INSERT INTO PublishedTemplate(ID, NAME, PUBLISHED_BY, LOGIC_TEMPLATE_ID, PROGRAMMING_QUESTION_PAPER_ID) VALUES
+  ('82a434dc-0869-11e6-99fe-0b01e67fc86e', 'This is another template.', 1, '211e9310-0869-11e6-99fe-0b01e67fc86e', '69f838fc-0869-11e6-99fe-0b01e67fc86e');

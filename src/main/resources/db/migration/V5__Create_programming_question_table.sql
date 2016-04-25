@@ -1,9 +1,9 @@
 create TABLE ProgrammingQuestion(
-    ID int not null AUTO_INCREMENT,
+    ID CHAR(36) not null,
     CONTENT TEXT,
     ANSWER VARCHAR(255),
     DURATION_HOUR int,
-    PAPER_ID int,
+    PAPER_ID CHAR(36),
     PRIMARY KEY (ID),
     FOREIGN KEY (PAPER_ID) REFERENCES ProgrammingQuestionPaper(ID) ON DELETE CASCADE ON UPDATE CASCADE
 );

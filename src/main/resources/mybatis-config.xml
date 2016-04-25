@@ -40,6 +40,8 @@
         </environment>
     </environments>
     <mappers>
+        <mapper resource="logic_question_rule.xml"/>
+        <mapper resource="logic_template.xml"/>
         <mapper resource="published_template.xml"/>
     </mappers>
 </configuration>

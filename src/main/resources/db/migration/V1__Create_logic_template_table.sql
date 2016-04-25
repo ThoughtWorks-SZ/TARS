@@ -1,4 +1,4 @@
 create TABLE LogicTemplate(
-    ID int not null AUTO_INCREMENT,
+    ID CHAR(36) not null,
     PRIMARY KEY (ID)
 );

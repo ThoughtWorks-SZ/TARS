@@ -4,12 +4,12 @@ package com.thoughtworks.exam.core;
  * Created by ctang on 4/22/16.
  */
 public class ProgrammingQuestion {
-    private Integer id;
+    private String id;
     private String content;
     private String answer;
     private Integer durationHour;
 
-    public Integer getId() {
+    public String getId() {
         return this.id;
     }
 

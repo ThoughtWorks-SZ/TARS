@@ -11,11 +11,11 @@ public interface PublishedTemplatesRepository {
 
     PublishedTemplate newPublishedTemplate(String name);
 
-    int createLogicTemplate();
+    void createLogicTemplate(Map newInstance);
     void createLogicQuestionRule(Map newInstance);
-    int createProgrammingQuestionPaper();
+    void createProgrammingQuestionPaper(Map newInstance);
     void createProgrammingQuestion(Map newInstance);
     void createPublishedTemplate(Map newInstance);
 
-    PublishedTemplate getPublishedTemplateById(int publishedTemplateId);
+    PublishedTemplate getPublishedTemplateById(String publishedTemplateId);
 }

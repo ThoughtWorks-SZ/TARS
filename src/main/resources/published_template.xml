@@ -11,6 +11,9 @@
         <id property="id" column="id" />
         <result property="name" column="name" />
         <result property="publishedBy" column="published_by" />
+        <result property="publishedDate" column="published_date" />
+        <result property="templateId" column="template_id" />
+        <result property="paperId" column="paper_id" />
         <collection property="logicQuestionRules" javaType="ArrayList" column="logic_template_id"
                     ofType="LogicQuestionRule" select="selectLogicQuestionRulesForPublishedTemplate" >
         </collection>
@@ -24,32 +27,35 @@
     </select>
 
     <insert id="createLogicTemplate">
-        insert into LogicTemplate() values();
-        <selectKey keyProperty="id" resultType="int">
-            select last_insert_id();
+        <selectKey keyProperty="templateId" resultType="String" order="BEFORE">
+            select uuid() from dual;
         </selectKey>
+        insert into LogicTemplate(id) value(#{templateId,jdbcType=CHAR});
     </insert>
 
     <insert id="createLogicQuestionRule">
-        insert into LogicQuestionRule(level, amount, repo_id, template_id)
-        values(#{level}, #{amount}, #{repositoryId}, #{templateId});
+        insert into LogicQuestionRule(id, level, amount, repo_id, template_id)
+        values(#{id}, #{level}, #{amount}, #{repositoryId}, #{templateId});
     </insert>
 
     <insert id="createProgrammingQuestionPaper">
-        insert into ProgrammingQuestionPaper() values();
-        <selectKey keyProperty="id" resultType="int">
-            select last_insert_id();
+        <selectKey keyProperty="paperId" resultType="String" order="BEFORE">
+            select uuid() from dual;
         </selectKey>
+        insert into ProgrammingQuestionPaper(id) values(#{paperId});
     </insert>
 
     <insert id="createProgrammingQuestion">
-        insert into ProgrammingQuestion(content, answer, duration_hour, paper_id)
-        values(#{content}, #{answer}, #{durationHour}, #{paperId});
+        insert into ProgrammingQuestion(id, content, answer, duration_hour, paper_id)
+        values(#{id}, #{content}, #{answer}, #{durationHour}, #{paperId});
     </insert>
 
     <insert id="createPublishedTemplate">
-        insert into PublishedTemplate(Name, published_by, logic_template_id, programming_question_paper_id)
-        values(#{name}, #{published_by}, #{template_id}, #{paper_id});
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            select uuid() from dual;
+        </selectKey>
+        insert into PublishedTemplate(id, Name, published_by, published_date, logic_template_id, programming_question_paper_id)
+        values(#{id}, #{name}, #{publishedBy}, now(), #{templateId}, #{paperId});
     </insert>
 
     <select id="getPublishedTemplateById" resultMap="publishedTemplateMapper">
