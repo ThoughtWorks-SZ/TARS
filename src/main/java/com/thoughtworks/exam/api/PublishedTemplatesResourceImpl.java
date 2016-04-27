@@ -15,11 +15,11 @@ import java.util.List;
 public class PublishedTemplatesResourceImpl implements PublishedTemplatesResource {
 
     @Inject
-    private PublishedTemplatesRepository pubishedTemplatesRepository;
+    private PublishedTemplatesRepository publishedTemplatesRepository;
 
     @Override
     public GetPublishedTemplatesResponse getPublishedTemplates() throws Exception {
-        List<PublishedTemplate> publishedTemplates = pubishedTemplatesRepository.findPublishedTemplates();
+        List<PublishedTemplate> publishedTemplates = publishedTemplatesRepository.findPublishedTemplates();
         return GetPublishedTemplatesResponse.withJsonOK(new PublishedTemplates().withPublishedTemplates(publishedTemplates));
     }
 
