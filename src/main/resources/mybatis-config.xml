@@ -16,7 +16,7 @@
         <setting name="useGeneratedKeys" value="true"/>
     </settings>
     <typeAliases>
-        <package name="com.thoughtworks.exam.core"/>
+        <package name="com.thoughtworks.exam.api"/>
     </typeAliases>
     <!-- Continue going here -->
     <environments default="development">
@@ -40,8 +40,6 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="logic_question_rule.xml"/>
-        <mapper resource="logic_template.xml"/>
         <mapper resource="published_template.xml"/>
     </mappers>
 </configuration>

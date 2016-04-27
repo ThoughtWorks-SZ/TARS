@@ -1,5 +1,7 @@
 package com.thoughtworks.exam.core;
 
+import com.thoughtworks.exam.api.model.PublishedTemplate;
+
 import java.util.List;
 import java.util.Map;
 

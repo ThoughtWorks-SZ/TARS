@@ -1,8 +1,8 @@
 package com.thoughtworks.fixed.assets.api;
 
-import com.thoughtworks.exam.core.LogicQuestionRule;
-import com.thoughtworks.exam.core.ProgrammingQuestion;
-import com.thoughtworks.exam.core.PublishedTemplate;
+import com.thoughtworks.exam.api.model.LogicQuestionRule;
+import com.thoughtworks.exam.api.model.ProgrammingQuestion;
+import com.thoughtworks.exam.api.model.PublishedTemplate;
 import com.thoughtworks.exam.core.PublishedTemplatesRepository;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -15,7 +15,6 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.Reader;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,11 +54,21 @@ public class PublishedTemplatesRepositoryTest {
     @Test
     public void should_find_all_published_templates() throws Exception {
         List<PublishedTemplate> publishedTemplate = publishedTemplatesRepository.findPublishedTemplates();
+
         assertThat(publishedTemplate.size(), is(2));
         assertThat(publishedTemplate.get(0).getName(), is("This is a template."));
         assertThat(publishedTemplate.get(0).getPublishedBy(), is(1));
         assertThat(publishedTemplate.get(1).getName(), is("This is another template."));
         assertThat(publishedTemplate.get(1).getPublishedBy(), is(1));
+        List<LogicQuestionRule> logicQuestionRules = publishedTemplate.get(0).getLogicQuestionRules();
+        assertThat(logicQuestionRules.get(0).getLevel(), is(0));
+        assertThat(logicQuestionRules.get(0).getAmount(), is(3));
+        assertThat(logicQuestionRules.get(0).getRepoName(), is("Mathematical Logic"));
+        assertThat(logicQuestionRules.get(0).getRepoUrl(), is("localhost:3010/mathematical-logic"));
+        List<ProgrammingQuestion> programmingQuestions = publishedTemplate.get(0).getProgrammingQuestions();
+        assertThat(programmingQuestions.get(0).getContent(), is("h1. This is a PROGRAMMING Exam"));
+        assertThat(programmingQuestions.get(0).getAnswer(), is("localhost:3011/test-ci"));
+        assertThat(programmingQuestions.get(0).getDurationHour(), is(148));
     }
 
     @Test
@@ -121,8 +130,8 @@ public class PublishedTemplatesRepositoryTest {
         List<LogicQuestionRule> logicQuestionRules = thePublishedTemplate.getLogicQuestionRules();
         assertThat(logicQuestionRules.get(0).getLevel(), is(0));
         assertThat(logicQuestionRules.get(0).getAmount(), is(3));
-        assertThat(logicQuestionRules.get(0).getRepositoryName(), is("Mathematical Logic"));
-        assertThat(logicQuestionRules.get(0).getRepositoryUrl(), is("localhost:3010/mathematical-logic"));
+        assertThat(logicQuestionRules.get(0).getRepoName(), is("Mathematical Logic"));
+        assertThat(logicQuestionRules.get(0).getRepoUrl(), is("localhost:3010/mathematical-logic"));
         List<ProgrammingQuestion> programmingQuestions = thePublishedTemplate.getProgrammingQuestions();
         assertThat(programmingQuestions.get(0).getContent(), is("h1. This is a PROGRAMMING Exam"));
         assertThat(programmingQuestions.get(0).getAnswer(), is("localhost:3011/test-ci"));

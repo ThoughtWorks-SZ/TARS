@@ -1,6 +1,7 @@
 package com.thoughtworks.fixed.assets.api;
 
 
+import com.thoughtworks.exam.api.PublishedTemplatesResourceImpl;
 import com.thoughtworks.exam.core.PublishedTemplatesRepository;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -20,8 +21,9 @@ public class TestBase extends JerseyTest {
 //        enable(TestProperties.LOG_TRAFFIC);
         enable(TestProperties.DUMP_ENTITY);
 //        enable(TestProperties.RECORD_LOG_LEVEL);
-
-        return new ResourceConfig().register(new AbstractBinder() {
+        ResourceConfig config = new ResourceConfig();
+        config.register(PublishedTemplatesResourceImpl.class);
+        return config.register(new AbstractBinder() {
 
 
             @Override

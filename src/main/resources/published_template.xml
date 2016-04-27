@@ -63,7 +63,7 @@
     </select>
 
     <select id="selectLogicQuestionRulesForPublishedTemplate" resultType="LogicQuestionRule" >
-        select rule.id, rule.level, rule.amount, repo.id as repositoryId, repo.name as repositoryName, repo.url as repositoryUrl
+        select rule.id, rule.level, rule.amount, repo.id as repositoryId, repo.name as repoName, repo.url as repoUrl
         from LogicQuestionRule rule, LogicQuestionRepo repo
         where rule.template_id = #{logic_template_id} and repo.id = rule.repo_id;
     </select>
