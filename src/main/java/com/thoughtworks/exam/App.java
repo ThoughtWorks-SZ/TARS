@@ -27,11 +27,7 @@ public class App {
     public static void main(String[] args) {
         try {
             System.out.println("\"Hello World\" Jersey Example App");
-            
-//            Map<String, String> initParams = new HashMap<>();
-//            initParams.put(
-//                    ServerProperties.PROVIDER_PACKAGES,
-//                    PublishedTemplatesResourceImpl.class.getPackage().getName());
+
             final HttpServer server = GrizzlyHttpServerFactory.createHttpServer(BASE_URI, createSessionInViewConfig(), false);
             Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
                 @Override
