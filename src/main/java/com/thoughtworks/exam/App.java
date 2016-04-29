@@ -1,5 +1,7 @@
 package com.thoughtworks.exam;
 
+import com.thoughtworks.exam.api.PublishedTemplatesResourceImpl;
+import com.thoughtworks.exam.api.resource.PublishedTemplatesResource;
 import com.thoughtworks.exam.core.PublishedTemplatesRepository;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -67,6 +69,7 @@ public class App {
                 .register(new AbstractBinder() {
                     @Override
                     protected void configure() {
+                        bind(PublishedTemplatesResourceImpl.class).to(PublishedTemplatesResource.class);
                         bind(publishedTemplatesRepository).to(PublishedTemplatesRepository.class);
                         bind(sqlSessionManager).to(SqlSessionManager.class);
                     }
@@ -89,6 +92,7 @@ public class App {
         resourceConfig.register(new AbstractBinder() {
             @Override
             protected void configure() {
+                bind(PublishedTemplatesResourceImpl.class).to(PublishedTemplatesResource.class);
                 bind(publishedTemplatesRepository).to(PublishedTemplatesRepository.class);
             }
         }).packages("com.thoughtworks.exam.api");

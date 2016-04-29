@@ -1,7 +1,6 @@
 package com.thoughtworks.exam.api;
 
 import com.thoughtworks.exam.api.model.PublishedTemplate;
-import com.thoughtworks.exam.api.model.PublishedTemplates;
 import com.thoughtworks.exam.api.resource.PublishedTemplatesResource;
 
 import com.thoughtworks.exam.core.PublishedTemplatesRepository;
@@ -20,11 +19,6 @@ public class PublishedTemplatesResourceImpl implements PublishedTemplatesResourc
     @Override
     public GetPublishedTemplatesResponse getPublishedTemplates() throws Exception {
         List<PublishedTemplate> publishedTemplates = publishedTemplatesRepository.findPublishedTemplates();
-        return GetPublishedTemplatesResponse.withJsonOK(new PublishedTemplates().withPublishedTemplates(publishedTemplates));
-    }
-
-    @Override
-    public PostPublishedTemplatesResponse postPublishedTemplates(PublishedTemplate entity) throws Exception {
-        return null;
+        return GetPublishedTemplatesResponse.withJsonOK(publishedTemplates);
     }
 }

@@ -20,22 +20,27 @@ import static org.mockito.Mockito.*;
  */
 public class PublishedTemplatesResourceImplTest extends TestBase {
     private String basePath = "/published-templates";
-    private PublishedTemplate firstPublishedTemplate = mock(PublishedTemplate.class);
-    private PublishedTemplate secondPublishedTemplate = mock(PublishedTemplate.class);
-    private PublishedTemplate newPublishedTemplate = mock(PublishedTemplate.class);
+    private PublishedTemplate firstPublishedTemplate = new PublishedTemplate();
+    private PublishedTemplate secondPublishedTemplate = new PublishedTemplate();
+//    private PublishedTemplate newPublishedTemplate = mock(PublishedTemplate.class);
 
 
     @Override
     public void setUp() throws Exception {
-        when(publishedTemplatesRepository.findPublishedTemplates()).thenReturn(Arrays.asList(firstPublishedTemplate, secondPublishedTemplate));
-        when(firstPublishedTemplate.getId()).thenReturn("f7b1d300-086a-11e6-99fe-0b01e67fc86e");
-        when(firstPublishedTemplate.getName()).thenReturn("This is a template.");
+        firstPublishedTemplate.setId("f7b1d300-086a-11e6-99fe-0b01e67fc86e");
+        firstPublishedTemplate.setName("This is a template.");
 
-        when(newPublishedTemplate.getId()).thenReturn("f89747f0-086a-11e6-99fe-0b01e67fc86e");
-        when(newPublishedTemplate.getName()).thenReturn("This is the third template.");
-        when(publishedTemplatesRepository.newPublishedTemplate(anyString())).thenReturn(mock(PublishedTemplate.class));
+        secondPublishedTemplate.setId("f89747f0-086a-11e6-99fe-0b01e67fc86e");
+        secondPublishedTemplate.setName("This is another template.");
 
-        when(publishedTemplatesRepository.getPublishedTemplateById(anyString())).thenReturn(firstPublishedTemplate);
+        when(publishedTemplatesRepository.findPublishedTemplates()).thenReturn(
+                Arrays.asList(firstPublishedTemplate, secondPublishedTemplate));
+
+//        when(newPublishedTemplate.getId()).thenReturn("f89747f0-086a-11e6-99fe-0b01e67fc86e");
+//        when(newPublishedTemplate.getName()).thenReturn("This is the third template.");
+//        when(publishedTemplatesRepository.newPublishedTemplate(anyString())).thenReturn(mock(PublishedTemplate.class));
+
+//        when(publishedTemplatesRepository.getPublishedTemplateById(anyString())).thenReturn(firstPublishedTemplate);
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
@@ -57,9 +62,13 @@ public class PublishedTemplatesResourceImplTest extends TestBase {
 
         assertThat(result.size(), is(2));
 
-        Map publishedTemplate = result.get(0);
+        Map actualFirstTemplate = result.get(0);
+        Map actualSecondTemplate = result.get(1);
 
-        assertThat((String) publishedTemplate.get("uri"), is(basePath+"/"+firstPublishedTemplate.getId()));
-        assertThat((String) publishedTemplate.get("name"), is(firstPublishedTemplate.getName()));
+        assertThat((String) actualFirstTemplate.get("id"), is(firstPublishedTemplate.getId()));
+        assertThat((String) actualFirstTemplate.get("name"), is(firstPublishedTemplate.getName()));
+
+        assertThat((String) actualSecondTemplate.get("id"), is(secondPublishedTemplate.getId()));
+        assertThat((String) actualSecondTemplate.get("name"), is(secondPublishedTemplate.getName()));
     }
 }

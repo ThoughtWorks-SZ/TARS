@@ -106,54 +106,12 @@ schemas:
   - PublishedTemplates: |
       {
           "$schema": "http://json-schema.org/draft-03/schema",
-          "type": "object",
+          "type": "array",
           "description": "A collection of published templates of exam paper",
-          "properties": {
-              "PublishedTemplates":  {
-                  "type": "array",
-                  "items": {
-                      "$ref": "PublishedTemplate"
-                  }
-              }
+          "items": {
+              "$ref": "PublishedTemplate"
           }
       }
-resourceTypes:
-  - base:
-      get?:
-        responses: &standardResponses
-          200:
-            description: OK
-      put?:
-        responses: *standardResponses
-      patch?:
-        responses: *standardResponses
-      post?:
-          responses:
-            201:
-              description: Created
-      delete?:
-        responses: *standardResponses
-  - collection:
-      type: base
-      get:
-      post:
-  - typedCollection:
-      type: collection
-      get:
-        responses:
-          200:
-            body:
-              application/json:
-                schema: <<collectionSchema>>
-      post:
-        body:
-          application/json:
-            schema: <<schema>>
-        responses:
-          201:
-            body:
-              application/json:
-                schema: <<schema>>
 # /users:
 #   post:
 #     body:
@@ -185,11 +143,12 @@ resourceTypes:
 #   /{recruitment-id}/end-time:
 #     post:
 /published-templates: &PbulishedTemplates
-  type: { typedCollection: { schema: PublishedTemplate, collectionSchema: PublishedTemplates } }
-  #get:
-        # body:
-        #   application/json:
-        #     schema: PublishedTemplate
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            schema: PublishedTemplates
   # /{published-template-id}:
   #   get:
   #   /random-generated-logic-paper:
